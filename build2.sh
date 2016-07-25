@@ -29,7 +29,7 @@
 
 
 #source_files="sp_cronjobs sp_timer sp_curl splog mgr_oslist mgr_ip sp_sysuctrl sp_xml sp_session sp_stats sp_firstrun base64 mgr mgr_acc mgr_cts connection request sys config sp_common mydb smain" 
-source_files="sp_cronjobs sp_timer sp_curl splog sp_sysuctrl sp_xml sp_session sp_stats sp_firstrun base64 mgr mgr_sitegroups mgr_sites mgr_siteurls mgr_acc connection request sys config sp_common mydb smain" 
+source_files="src/core/sp_cronjobs src/core/sp_timer src/core/sp_curl src/core/splog src/core/sp_sysuctrl src/core/sp_xml src/core/sp_session src/core/sp_stats src/core/sp_firstrun src/core/base64 src/modules/mgr/mgr src/modules/mgr/mgr_sitegroups src/modules/mgr/mgr_sites src/modules/mgr/mgr_siteurls src/modules/mgr/mgr_acc src/core/connection src/core/request src/core/sys src/core/config src/core/sp_common src/core/mydb src/core/smain" 
 
     SETCOLOR_SUCCESS="echo -en \\033[1;32m"
     SETCOLOR_FAILURE="echo -en \\033[1;31m"
@@ -62,7 +62,7 @@ do
 	   depmode=gcc3 /bin/sh ./depcomp \
 	   /usr/bin/g++ --ansi -O2 -Wno-deprecated \
 		-I/usr/include/libxml2 \
-		-I. -I/usr/local/openssl/include \
+		-I. -Isrc/modules/mgr/ -Isrc/core/ -I/usr/local/openssl/include \
 		-g -c -o $OBJPATH$srcfile${OBJSRC} `test -f '$srcfile${SRCEXT}' || echo './'`$srcfile${SRCEXT} 
 	then
 		touch --reference=$OBJPATH$srcfile${OBJSRC} $srcfile${SRCEXT} 
@@ -77,7 +77,7 @@ do
 done
 
 if g++ -g -O2 --ansi -o spanel -Wall  ${objlist}  \
-	-lpthread -levent -I. -DHAVE_SSL=1 \
+	-lpthread -levent -I. -Isrc/modules/mgr/ -Isrc/core/ -DHAVE_SSL=1 \
 	-L/usr/local/openssl/lib -lssl -lcrypt -lcrypto \
 	`curl-config --libs` \
 	-lz -lxml2 -lxslt  -lnsl /usr/local/lib/libsqlite3.a
