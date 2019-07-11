@@ -7,7 +7,7 @@ Key features implemented:
 * Example module to control OpenVZ VDS containers.
 
 
-This project has never been used in production because was abandonned due to lack of time and people to support the development. 
+This project has never been used in production because was abandoned due to lack of time and people to support the development. 
 Also lots of vendors came up with their own control panels which made further development meaningless.
 
 ## Package incomplete!
